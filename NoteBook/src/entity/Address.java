@@ -32,11 +32,10 @@ public class Address {
 		this.buildNumber = buildNumber;
 	}
 	
-	//TODO
-	/*@Override
+	@Override
 	public String toString() {
 
-		return super.toString();
-	}*/
+		return "\n" + getIndex() + " " + getTown() + " " + getStreet() + " " + getBuildNumber() + ";";
+	}
 	
 }

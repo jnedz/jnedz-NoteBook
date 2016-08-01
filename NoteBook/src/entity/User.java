@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.Set;
-
 import org.joda.time.DateTime;
 
 import enums.Group;
@@ -60,9 +58,14 @@ public class User {
 		this.telNumbers = telNumbers;
 	}
 	
+	private String address(){
+		
+		return getAddress().toString().substring(1, 11);
+	}
+	
 	@Override
 	public String toString() {
-		return "\n" + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString("dd/MM/yyyy") + ")\n" + getEmail() + "\n" + getAddress().toString();
+		return "\n\n" + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString("dd/MM/yyyy") + ")\n" + getEmail() +"\n" + address() + getTelNumbers();
 	}
 	
 	
