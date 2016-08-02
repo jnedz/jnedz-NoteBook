@@ -58,14 +58,9 @@ public class User {
 		this.telNumbers = telNumbers;
 	}
 	
-	private String address(){
-		
-		return getAddress().toString().substring(1, 11);
-	}
-	
 	@Override
 	public String toString() {
-		return "\n\n" + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString("dd/MM/yyyy") + ")\n" + getEmail() +"\n" + address() + getTelNumbers();
+		return "\n\n" + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString("dd/MM/yyyy") + ")\n" + getEmail() +"\n" + getAddress().toString().substring(1, 11) + getTelNumbers();
 	}
 	
 	

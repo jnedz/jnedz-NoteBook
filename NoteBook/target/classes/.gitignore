@@ -1,3 +1,7 @@
+/META-INF/
 /entity/
-/repository/
-/main/
+/interfacesIO/
+/consoleIO/
+/xmlIO/
+/validateUtils/
+/validationUtils/
