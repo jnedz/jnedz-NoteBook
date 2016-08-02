@@ -8,11 +8,12 @@ import java.util.Set;
 import org.joda.time.DateTime;
 
 import entity.Address;
-import entity.FonsNumbers;
+import entity.PhonsNumbers;
+import entity.PhoneBook;
 import entity.User;
 import enums.Group;
 
-public class UsersRepository {
+public class Repository {
 
 	public static List<User> usersRepository() {
 		
@@ -33,11 +34,11 @@ public class UsersRepository {
 		user.setAddress(address);
 		
 		
-		FonsNumbers telNumbers = new FonsNumbers();
+		PhonsNumbers telNumbers = new PhonsNumbers();
 		telNumbers.setHomeNumber("0372654321");
-		telNumbers.setWorkNumbers("0372123456");
-		String mobNumber1 = "123456789";
-		String mobNumber2 = "987654321";
+		telNumbers.setWorkNumber("0372123456");
+		String mobNumber1 = "1234567890";
+		String mobNumber2 = "0987654321";
 		Set <String> mobileNumbers = new LinkedHashSet<>();
 		mobileNumbers.add(mobNumber1);
 		mobileNumbers.add(mobNumber2);
@@ -61,10 +62,9 @@ public class UsersRepository {
 		address.setTown("Lviv");
 		user.setAddress(address);
 		
-		
-		telNumbers = new FonsNumbers();
+		telNumbers = new PhonsNumbers();
 		telNumbers.setHomeNumber("0372654321");
-		telNumbers.setWorkNumbers("0372123456");
+		telNumbers.setWorkNumber("0372123456");
 		String mobNumber3 = "112233445";
 		String mobNumber4 = "998877665";
 		Set <String> mobileNumbers2 = new LinkedHashSet<>();
@@ -75,6 +75,39 @@ public class UsersRepository {
 		
 		users.add(user);
 		
+		user = new User();
+		
+		user.setFirstName("FN3");
+		user.setLastName("LN3");
+		user.setType(Group.OTHER);
+		user.setDateOfBirthday(new DateTime(1970, 01, 25, 00, 00));
+		user.setEmail("email3@gmail.com");
+		
+		address = new Address();
+		address.setBuildNumber("40/1 25");
+		address.setIndex("43002");
+		address.setStreet("Street str.");
+		address.setTown("Odessa");
+		user.setAddress(address);
+		
+		telNumbers = new PhonsNumbers();
+		telNumbers.setHomeNumber("0372556699");
+		telNumbers.setWorkNumber("0372445511");
+		String mobNumber5 = "(050)888-99-44";
+		String mobNumber6 = "(066)555-44-21";
+		Set <String> mobileNumbers3 = new LinkedHashSet<>();
+		mobileNumbers3.add(mobNumber5);
+		mobileNumbers3.add(mobNumber6);
+		telNumbers.setMobileNumbers(mobileNumbers3);
+		user.setTelNumbers(telNumbers);
+		
+		users.add(user);
+		
 		return users;
+	}
+	
+	public static PhoneBook phoneBookRepository(){
+		PhoneBook phoneBook = new PhoneBook(usersRepository());
+		return phoneBook;
 	}
 }

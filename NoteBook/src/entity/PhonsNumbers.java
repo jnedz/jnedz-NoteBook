@@ -2,12 +2,17 @@ package entity;
 
 import java.util.Set;
 
-public class FonsNumbers {
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class PhonsNumbers {
 
 	private String homeNumber;
 	private String workNumber;
 	private Set<String> mobileNumbers;
 
+	@XmlElement
 	public String getHomeNumber() {
 		return homeNumber;
 	}
@@ -16,14 +21,16 @@ public class FonsNumbers {
 		this.homeNumber = homeNumber;
 	}
 
+	@XmlElement
 	public String getWorkNumber() {
 		return workNumber;
 	}
 
-	public void setWorkNumbers(String workNumber) {
+	public void setWorkNumber(String workNumber) {
 		this.workNumber = workNumber;
 	}
 
+	@XmlElement
 	public Set<String> getMobileNumbers() {
 		return mobileNumbers;
 	}
@@ -36,8 +43,10 @@ public class FonsNumbers {
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		str.append("\n");
-		for (String s : mobileNumbers){
-			str.append(s.toString() + ", ");
+		if (getMobileNumbers()!=null) {
+			for (String s : getMobileNumbers()){
+				str.append(s + ", ");
+			}
 		}
 		str.append(getHomeNumber().substring(getHomeNumber().length() - 6) + ", ");
 		str.append(getWorkNumber().substring(getWorkNumber().length() - 6));
