@@ -10,7 +10,7 @@ public class PhonsNumbers {
 
 	private String homeNumber;
 	private String workNumber;
-	private Set<String> mobileNumbers;
+	private Set<String> mobileNumbers;//= new HashSet<>();
 
 	@XmlElement
 	public String getHomeNumber() {
@@ -45,6 +45,7 @@ public class PhonsNumbers {
 		str.append("\n");
 		if (getMobileNumbers()!=null) {
 			for (String s : getMobileNumbers()){
+				System.out.print("1");
 				str.append(s + ", ");
 			}
 		}

@@ -21,5 +21,5 @@ public class PhoneBookService {
 		this.phoneBook = phoneBook;
 	}
 	
-	
+	//TODO get all by type
 }

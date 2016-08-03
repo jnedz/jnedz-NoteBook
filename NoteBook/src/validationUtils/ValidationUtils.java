@@ -7,6 +7,15 @@ public class ValidationUtils {
 	
 	private String codding;
 	
+	private static String NAME_PATTERN;
+	private static String EMAIL_PATTERN;
+	private static String DATE_PATTERN;
+	private static String INDEX_PATTERN;
+	private static String STREET_PATTERN;
+	private static String BUILD_PATTERN;
+	private static String TELNUMBER_PATTERN;
+	
+	
 	public String getCodding() {
 		return codding;
 	}
@@ -15,68 +24,69 @@ public class ValidationUtils {
 		this.codding = codding;
 	}
 	
+	private void setPatterns(){
+		if (codding == "UA"){
+			NAME_PATTERN = "^[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}([-]{0,1}[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}){0,11}$";
+			DATE_PATTERN = "(0?[1-9]|[12][0-9]|3[01])[.](0?[1-9]|1[012])[.]((19|20)\\d\\d)";
+			
+		}
+		if (codding == "EN"){
+			NAME_PATTERN = "^[A-Z]{1}[a-z]{1,9}([-]{0,1}[A-Z]{1}[a-z]{1,9})$";
+			DATE_PATTERN = "(0?[1-9]|1[012])[/](0?[1-9]|[12][0-9]|3[01])[/](19|20)\\d\\d";
+		}
+		EMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}$";
+		INDEX_PATTERN = "[1-9]{1}[0-9]{4}";
+		STREET_PATTERN = "^[1-9A-ZÀ-ß²¯à-ÿ³¿º'a-z]{1,10}([\\.\\s]{0,1}[1-9A-ZÀ-ß²¯à-ÿ³¿º'a-z]{1,10})";
+		BUILD_PATTERN = "([1-9]{1}[0-9à-ÿÀ-ß³²¿¯ºª'a-zA-Z/\\s]){1,10}";
+		TELNUMBER_PATTERN = "[(]{1}[0-9]{3}[)]{1}[0-9]{7}";
+	}
+	
 	public ValidationUtils (String codding){
 		if (codding == "UA" || codding == "EN"){
 			this.codding = codding;
 		}else{
 			this.codding = "UA";
 		}
+		setPatterns();
 	}
-
-	public static final Pattern charactersUA = Pattern.compile("^[à-ÿÀ-ß³²¿¯ºª']{1,10}([-]{0,1}[à-ÿÀ-ß³²¿¯ºª']{1,10}){0,11}([-]{0,1}[à-ÿÀ-ß³²¿¯ºª']{1,10}){0,11}$");  /*"^[à-ÿÀ-ß³²¿¯ºª'a-zA-Z-]{1,20}$");*/
-	public static final Pattern charactersEN = Pattern.compile("^[a-zA-Z]{1,10}([-]{0,1}[a-zA-Z]{1,10}){0,11}([-]{0,1}[a-zA-Z]{1,10}){0,11}$");
 	
-	//public static final Pattern email = Pattern.compile("^[a-zA-Z._]{1,20}\\@{1}[a-zA-Z]{3,10}\\.{1}[a-zA-Z]{2,4}$");
-	public static final Pattern email = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$");
-	public static final Pattern date = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]((19|20)\\d\\d)");
-	public static final Pattern index = Pattern.compile("[0-9]{5}");
-	//public static final Pattern town = Pattern.compile("");
-	//public static final Pattern street = Pattern.compile("");
-	public static final Pattern buildNumber = Pattern.compile("[0-9à-ÿÀ-ß³²¿¯ºª'a-zA-Z/\\s]{1,10}");
-	public static final Pattern telNumber = Pattern.compile("[0-9]{6,10}");
+	public ValidationUtils (){
+	}
 	
-	public boolean checkharacters(String str){
-		Matcher m;
-		if (codding == "UA"){
-			m = charactersUA.matcher(str); 
-		}else{
-			m = charactersEN.matcher(str); 
-		}
+	
+	public boolean checkCharacters(String str){
+		Matcher m = Pattern.compile(NAME_PATTERN).matcher(str); 
         return m.matches();  
 	}
 	
-	public static boolean checkEmail(String str){
-        Matcher m = email.matcher(str);  
+	public boolean checkEmail(String str){
+        Matcher m =Pattern.compile(EMAIL_PATTERN).matcher(str);  
         return m.matches();  
 	}
 	
-	public static boolean checkDate(String str){
-        Matcher m = date.matcher(str);  
+	public boolean checkDate(String str){
+		Matcher m = Pattern.compile(DATE_PATTERN).matcher(str); 
         return m.matches();  
 	}
 	
-	public static boolean checkIndex(String str){
-        Matcher m = index.matcher(str);  
+	public boolean checkIndex(String str){
+        Matcher m = Pattern.compile(INDEX_PATTERN).matcher(str);  
         return m.matches();  
 	}
 	
-/*	public static boolean checkTown(String str){
-        Matcher m = title.matcher(str);  
-        return m.matches();  
-	}
-*//*	
+	
 	public static boolean checkStreet(String str){
-        Matcher m = title.matcher(str);  
-        return m.matches();  
-	}
-*/	
-	public static boolean checkBuildNumber(String str){
-        Matcher m = buildNumber.matcher(str);  
+        Matcher m = Pattern.compile(STREET_PATTERN).matcher(str);  
         return m.matches();  
 	}
 	
-	public static boolean checkTelNumber(String str){
-        Matcher m = telNumber.matcher(str);  
+	public boolean checkBuildNumber(String str){
+        Matcher m = Pattern.compile(BUILD_PATTERN).matcher(str);  
+        return m.matches();  
+	}
+	 
+	public boolean checkTelNumber(String str){
+        Matcher m = Pattern.compile(TELNUMBER_PATTERN).matcher(str);  
         return m.matches();  
 	}
 	

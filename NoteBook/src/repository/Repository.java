@@ -65,11 +65,11 @@ public class Repository {
 		telNumbers = new PhonsNumbers();
 		telNumbers.setHomeNumber("0372654321");
 		telNumbers.setWorkNumber("0372123456");
-		String mobNumber3 = "112233445";
-		String mobNumber4 = "998877665";
+	//	String mobNumber3 = "112233445";
+		//String mobNumber4 = "998877665";
 		Set <String> mobileNumbers2 = new LinkedHashSet<>();
-		mobileNumbers2.add(mobNumber3);
-		mobileNumbers2.add(mobNumber4);
+	//	mobileNumbers2.add(mobNumber3);
+	//	mobileNumbers2.add(mobNumber4);
 		telNumbers.setMobileNumbers(mobileNumbers2);
 		user.setTelNumbers(telNumbers);
 		

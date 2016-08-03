@@ -11,7 +11,7 @@ import adapters.JodaDateTimeAdapter;
 import enums.Group;
 
 @XmlRootElement
-@XmlType(propOrder = {"firstName", "lastName", "dateOfBirthday", "type", "email", "address", "telNumbers"})
+@XmlType(propOrder = {"type", "firstName", "lastName", "dateOfBirthday", "email", "address", "telNumbers"})
 public class User {
 
 	//TODO id 
