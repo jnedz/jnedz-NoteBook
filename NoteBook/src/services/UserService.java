@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
+import entity.PhoneBook;
 import entity.User;
 
 public class UserService {
@@ -24,6 +27,10 @@ public class UserService {
 
 	public UserService(List<User> users) {
 		this.users = users;
+	}
+	
+	public UserService(PhoneBook phoneBook){
+		this.users = phoneBook.getUsers();
 	}
 	
 
@@ -62,15 +69,17 @@ public class UserService {
 		}
 		return usersByType;
 	}
-	
+	////
 	public List<User> getUsersByPhone(String phoneNumber){
 		List<User> usersByPhone = new ArrayList<>();
 		for (User user : users){
-			if (user.getTelNumbers().getHomeNumber().contains(phoneNumber) || user.getTelNumbers().getWorkNumber().contains(phoneNumber)){
+			if (user.getTelNumbers().getHomeNumber().contains(phoneNumber)){
 				usersByPhone.add(user);
-				//TODO else or set
-			}
-			for (String mobile : user.getTelNumbers().getMobileNumbers()){
+				break;
+			}else if (user.getTelNumbers().getWorkNumber().contains(phoneNumber)){
+				usersByPhone.add(user);
+				break;
+			}else for (String mobile : user.getTelNumbers().getMobileNumbers()){
 				if (mobile.contains(phoneNumber)){
 					usersByPhone.add(user);
 				}
@@ -99,7 +108,6 @@ public class UserService {
 		return usersByTown;
 	}
 	
-	//TODO
 	public List<User> getUsersByName(String name1, String name2){
 		List<User> usersByName = new ArrayList<>();
 		for (User user: users){
@@ -110,4 +118,59 @@ public class UserService {
 		return usersByName;
 	}
 	
+	public List<User> getUsersByDateOfBirthday(DateTime dateOfBirthday){
+		List<User> usersByDate = new ArrayList<>();
+		for (User user: users){
+			if (dateOfBirthday.equals(user.getDateOfBirthday())){
+				usersByDate.add(user);
+			}
+		}
+		return usersByDate;
+	}
+	
+	public List<User> getUsersWithBirthdayInMonth(int month){
+		List<User> usersByMonth = new ArrayList<>();
+		for (User user: users){
+			if (user.getDateOfBirthday().getMonthOfYear()==month){
+				usersByMonth.add(user);
+			}
+		}
+		return usersByMonth;
+	}
+	
+	public List<User> getUsersWithBirthdayInDiapason(DateTime startDate, DateTime finishDate){
+		List<User> usersByDateDiapason = new ArrayList<>();
+		int userDay;
+		int userMonth;
+		int startDay;
+		int startMonth;
+		int finishDay;
+		int finishMonth;
+		
+		for (User user: users){
+			userDay = user.getDateOfBirthday().getDayOfMonth();
+			userMonth = user.getDateOfBirthday().getMonthOfYear();
+			startDay = startDate.getDayOfMonth();
+			startMonth = startDate.getMonthOfYear();
+			finishDay = finishDate.getDayOfMonth();
+			finishMonth = finishDate.getMonthOfYear();
+			
+			if (startMonth == finishMonth){
+				if(userDay>=startDay && userDay<= finishDay)
+					usersByDateDiapason.add(user);
+			}
+			if ((finishMonth - startMonth) == 1){
+				if ((userMonth == startMonth && userDay>=startDay) || (userMonth == finishMonth && userDay<= finishDay ))
+					usersByDateDiapason.add(user);
+			}
+			if ((finishMonth - startMonth) > 1){
+				if ((userMonth > startMonth && userMonth< finishMonth)|| (userMonth == startMonth && userDay>=startDay) || (userMonth == finishMonth && userDay<= finishDay ))
+					usersByDateDiapason.add(user);
+			}
+			if ((finishMonth - startMonth) < 0 ){
+				System.out.println("Dates are from diferent years. Use dates in one year`s diapasone, please.");
+			}
+		}
+		return usersByDateDiapason;
+		}
 }

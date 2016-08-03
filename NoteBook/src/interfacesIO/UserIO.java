@@ -1,9 +1,6 @@
 package interfacesIO;
 
-import java.util.List;
-
 import entity.PhoneBook;
-import entity.User;
 
 public interface UserIO {
 
