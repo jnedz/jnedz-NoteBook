@@ -1,12 +1,8 @@
 package main;
 
-import java.util.List;
+import java.io.IOException;
 
 import consoleIO.ConsoleUserIO;
-import entity.PhoneBook;
-import entity.User;
-import repository.Repository;
-import services.UserService;
 import xmlIO.XmlUserIO;
 
 public class Main {
@@ -14,19 +10,28 @@ public class Main {
 
 	public static void main (String ... args) {
 		
+		
+		String s = "";
+		if (!s.isEmpty()){
+		System.out.println(s.substring(-2));
+		}
+		
+		
 		//System.out.println(Repository.usersRepository());
 		//System.out.println(Repository.phoneBookRepository());
 		
 		ConsoleUserIO cu = new ConsoleUserIO();
-		System.out.println(cu.readListFrom("console"));
-		
+	/*	
+		PhoneBook phoneBook = cu.readListFrom("console");
+		System.out.println(phoneBook);
+	*/	
 		
 		XmlUserIO xml = new XmlUserIO();
 	//	List<User> users = Repository.usersRepository();
-	/*	
-		PhoneBook users = Repository.phoneBookRepository();
+		
+	/*	PhoneBook users = Repository.phoneBookRepository();
 		xml.writeListTo(users, "e:\\xml1.xml");
-		*/
+	*/	
 	//	System.out.println(xml.readListFrom("e:\\xml1.xml"));
 		
 		//UserService us = new UserService(users);

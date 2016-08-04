@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.LinkedHashSet;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -9,12 +11,13 @@ import org.joda.time.DateTime;
 
 import adapters.JodaDateTimeAdapter;
 import enums.Group;
+import utils.IdGenerator;
 
 @XmlRootElement
-@XmlType(propOrder = {"type", "firstName", "lastName", "dateOfBirthday", "email", "address", "telNumbers"})
+@XmlType(propOrder = {"id", "type", "firstName", "lastName", "dateOfBirthday", "email", "address", "telNumbers"})
 public class User {
 
-	//TODO id 
+	private long id;
 	private Group type;
 	private String lastName;
 	private String firstName;
@@ -23,6 +26,22 @@ public class User {
 	private Address address;
 	private PhonsNumbers telNumbers;
 	
+	
+	public User(){
+		IdGenerator idGener = new IdGenerator(new LinkedHashSet<>());
+		id = idGener.getID(1000, 9999);
+	}
+	
+	@XmlElement
+	public long getId() {
+		return id;
+	}
+
+	/*public void setId(long id) {
+		this.id = id;
+	}*/
+
+
 	@XmlElement
 	public Group getType() {
 		return type;
