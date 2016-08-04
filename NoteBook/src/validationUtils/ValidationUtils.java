@@ -26,23 +26,23 @@ public class ValidationUtils {
 	
 	private void setPatterns(){
 		if (codding == "UA"){
-			NAME_PATTERN = "^[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}([-]{0,1}[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}){0,11}$";
-			DATE_PATTERN = "(0?[1-9]|[12][0-9]|3[01])[.](0?[1-9]|1[012])[.]((19|20)\\d\\d)";
+			NAME_PATTERN = "^[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}([-]{1}[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}){0,11}$";
+			DATE_PATTERN = "(0?[1-9]|[12][0-9]|3[01])[\\.](0?[1-9]|1[012])[\\.]((19|20)\\d\\d)";
 			
 		}
 		if (codding == "EN"){
-			NAME_PATTERN = "^[A-Z]{1}[a-z]{1,9}([-]{0,1}[A-Z]{1}[a-z]{1,9})$";
-			DATE_PATTERN = "(0?[1-9]|1[012])[/](0?[1-9]|[12][0-9]|3[01])[/](19|20)\\d\\d";
+			NAME_PATTERN = "^[A-Z]{1}[a-z]{1,9}([-]{1}[A-Z]{1}[a-z]{1,9}){0,11}$";
+			DATE_PATTERN = "(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)";
 		}
 		EMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}$";
 		INDEX_PATTERN = "[1-9]{1}[0-9]{4}";
-		STREET_PATTERN = "^[1-9A-ZÀ-ß²¯à-ÿ³¿º'a-z]{1,10}([\\.\\s]{0,1}[1-9A-ZÀ-ß²¯à-ÿ³¿º'a-z]{1,10})";
+		STREET_PATTERN ="^([1-9A-ZÀ-ß¯ª]{1}[-1-9A-ZÀ-ß²¯à-ÿ³¿º'a-z/]*){1,20}";//"^([1-9A-ZÀ-ß¯ª]{1}[-1-9A-ZÀ-ß²¯à-ÿ³¿º'a-z/]*//.{0,1}//s{0,1}){1,20}([1-9A-ZÀ-ß¯ª]{1}[-1-9A-ZÀ-ß²¯à-ÿ³¿º'a-z/]*//.{0,1}//s{0,1}){1,20}$"; 
 		BUILD_PATTERN = "([1-9]{1}[0-9à-ÿÀ-ß³²¿¯ºª'a-zA-Z/\\s]){1,10}";
 		TELNUMBER_PATTERN = "[(]{1}[0-9]{3}[)]{1}[0-9]{7}";
 	}
 	
 	public ValidationUtils (String codding){
-		if (codding == "UA" || codding == "EN"){
+		if ("UA".equals(codding) || "EN".equals(codding)){
 			this.codding = codding;
 		}else{
 			this.codding = "UA";

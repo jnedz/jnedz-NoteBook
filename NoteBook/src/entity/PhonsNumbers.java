@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -10,7 +11,7 @@ public class PhonsNumbers {
 
 	private String homeNumber;
 	private String workNumber;
-	private Set<String> mobileNumbers;//= new HashSet<>();
+	private Set<String> mobileNumbers = new HashSet<>();
 
 	@XmlElement
 	public String getHomeNumber() {
@@ -41,16 +42,17 @@ public class PhonsNumbers {
 
 	@Override
 	public String toString() {
-		StringBuilder str = new StringBuilder();
-		str.append("\n");
-		if (getMobileNumbers()!=null) {
+		
+		String str = "\n";
 			for (String s : getMobileNumbers()){
-				System.out.print("1");
-				str.append(s + ", ");
+				str += s + ", ";
 			}
-		}
-		str.append(getHomeNumber().substring(getHomeNumber().length() - 6) + ", ");
-		str.append(getWorkNumber().substring(getWorkNumber().length() - 6));
+			if (getHomeNumber().toString().length()>=6){
+				str += getHomeNumber().substring(getHomeNumber().length() - 6) + ", ";
+			}
+			if (getWorkNumber().toString().length()>=6){
+				str += getWorkNumber().substring(getWorkNumber().length() - 6);
+			}
 		return str.toString();
 	}
 
