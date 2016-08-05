@@ -50,11 +50,12 @@ public class PhonsNumbers {
 				str += s + ", ";
 			}
 		}
-		if (!(getHomeNumber().toString().isEmpty())) {
+		if (getHomeNumber().toString().length() >= 6) {
+		//if (!(getHomeNumber().toString().isEmpty())) {
 			str += getHomeNumber().substring(getHomeNumber().length() - 6) + ", ";
 		}
-
-		if (!(getWorkNumber().toString().isEmpty())) {
+		if (getWorkNumber().toString().length() >= 6) {
+		//if (!(getWorkNumber().toString().isEmpty())) {
 			str += getWorkNumber().substring(getWorkNumber().length() - 6);
 		}
 		return str.toString();

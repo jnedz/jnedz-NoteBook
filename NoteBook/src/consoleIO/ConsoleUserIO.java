@@ -1,5 +1,6 @@
 package consoleIO;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,17 +10,18 @@ import java.util.Set;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import adapters.JodaDateTimeAdapter;
 import entity.Address;
 import entity.PhoneBook;
 import entity.PhonsNumbers;
 import entity.User;
 import enums.Group;
 import interfacesIO.UserIO;
-import utils.ValidationUtils;
+import utils.CoddingUtils;
 
 public class ConsoleUserIO implements UserIO {
 
-	private ValidationUtils validation;
+	private CoddingUtils validation;
 
 	/**
 	 * read from console one user
@@ -70,7 +72,7 @@ public class ConsoleUserIO implements UserIO {
 		} else {
 			codding = "UA";
 		}
-		validation = new ValidationUtils(codding);
+		validation = new CoddingUtils(codding);
 		// sc.close();
 
 	}
@@ -168,8 +170,8 @@ public class ConsoleUserIO implements UserIO {
 	}
 
 	/**
-	 * 
-	 * @return selected from console users date of birthday
+	 * @return selected from console users date of birthday. 
+	 * If date was entered in correctly form but doesn't match the calendar, user set today`s date
 	 */
 	private DateTime getDateOfBirthdayFromConsole() {
 		Scanner sc = new Scanner(System.in);
@@ -181,20 +183,14 @@ public class ConsoleUserIO implements UserIO {
 				System.out.println("You have entered the invalide date`s format. Please try again.");
 			}
 		} while (!validation.checkDate(str));
-
+		
+		JodaDateTimeAdapter dta = new JodaDateTimeAdapter();
 		DateTime dt = new DateTime();
-		org.joda.time.format.DateTimeFormatter formatter = null;
-		if (this.validation.getCodding().equals("UA")) {
-			formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
-		}
-		if (this.validation.getCodding().equals("EN")) {
-			formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
-		}
-
-		// org.joda.time.format.DateTimeFormatter formatter =
-		// DateTimeFormat.forPattern("dd/MM/yyyy");
-		dt = formatter.parseDateTime(str);
-		if (dt.isAfterNow()) {
+		try{
+		dt = dta.unmarshal(str);
+		}catch(Exception e){
+			//TODO
+			System.out.println("You have entered  incorrect date. Wrote today`s date.");
 			dt = new DateTime();
 		}
 		// sc.close();
@@ -230,11 +226,9 @@ public class ConsoleUserIO implements UserIO {
 		do {
 			str = sc.next();
 			if (!validation.checkTown(str)) {
-				// if (!validation.checkCharacters(str)) {
 				System.out.println("You have entered the invalide town format. Please try again.");
 			}
 		} while (!validation.checkTown(str));
-		// } while (!validation.checkCharacters(str));
 		// sc.close();
 		return str;
 	}

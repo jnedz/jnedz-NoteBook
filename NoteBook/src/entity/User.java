@@ -9,8 +9,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import adapters.JodaDateTimeAdapter;
 import enums.Group;
+import utils.CoddingUtils;
 import utils.IdGenerator;
 
 @XmlRootElement
@@ -77,6 +80,7 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	@JsonIgnore
 	@XmlElement
 	@XmlJavaTypeAdapter(JodaDateTimeAdapter.class)
 	public DateTime getDateOfBirthday() {
@@ -95,11 +99,14 @@ public class User {
 	
 	@Override
 	public String toString() {
+		String format = new JodaDateTimeAdapter().getFormat();
+		
 		String address = getAddress().toString();
 		if (!(getAddress().toString().isEmpty())){
 			address = getAddress().toString().substring(1, 11);
 		}
-		return "\n\n" + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString("dd/MM/yyyy") + ")\n" + getEmail() +"\n" + address + getTelNumbers();
+		
+		return "\n\n" + getFirstName() + " " + getLastName() + /*" ("  getDateOfBirthday().toString(format) + ")\n" + */getEmail() +"\n" + address + getTelNumbers();
 	}
 	
 	

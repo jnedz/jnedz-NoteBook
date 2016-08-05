@@ -3,9 +3,10 @@ package utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ValidationUtils {
+public class CoddingUtils {
 	
 	private String codding;
+	public static String FORMAT;
 	
 	private static String NAME_PATTERN;
 	private static String EMAIL_PATTERN;
@@ -25,25 +26,39 @@ public class ValidationUtils {
 		this.codding = codding;
 	}
 	
+	
+	
+	public static String getFORMAT() {
+		return FORMAT;
+	}
+
+	public static void setFORMAT(String fORMAT) {
+		FORMAT = fORMAT;
+	}
+
 	private void setPatterns(){
 		if (codding == "UA"){
+			FORMAT = "dd.MM.yyyy";
 			NAME_PATTERN = "^[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}([-]{1}[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}){0,11}$";
 			DATE_PATTERN = "(0?[1-9]|[12][0-9]|3[01])[\\.](0?[1-9]|1[012])[\\.]((19|20)\\d\\d)";
-			
+			STREET_PATTERN ="^([1-9A-ZÀ-ß¯ª]{1}[0-9A-ZÀ-ß²¯à-ÿ³¿º'a-z-\\s\\.]{0,19}){1,20}$"; 
+			BUILD_PATTERN = "^([1-9]{1}[0-9]{0,9}(/{0,1}[à-ÿÀ-ß³²¿¯ºª'a-zA-Z]{1,2}){0,3}\\s{0,1}([1-9]{1,9}[0-9]{0,8}){0,9}){1,10}$";
+			TOWN_PATTERN = "^[A-ZÀ-ß²¯]{1}[à-ÿ³¿º'a-z]{1,9}([-]{1}\\s{1}[A-ZÀ-ß²¯]{1}[a-zà-ÿ³¿º']{1,9}){0,11}$";
 		}
 		if (codding == "EN"){
+			FORMAT = "MM/dd/yyyy";
 			NAME_PATTERN = "^[A-Z]{1}[a-z]{1,9}([-]{1}[A-Z]{1}[a-z]{1,9}){0,11}$";
 			DATE_PATTERN = "(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)";
+			STREET_PATTERN ="^([1-9A-Z]{1}[0-9A-ZA-z-\\s\\.]{0,19}){1,20}$"; 
+			BUILD_PATTERN = "^([1-9]{1}[0-9]{0,9}(/{0,1}[a-zA-Z]{1,2}){0,3}\\s{0,1}([1-9]{1,9}[0-9]{0,8}){0,9}){1,10}$";
+			TOWN_PATTERN = "^[A-Z]{1}[a-z]{1,9}([-]{1}\\s{1}[A-Z]{1}[a-z]{1,9}){0,11}$";
 		}
 		EMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}$";
 		INDEX_PATTERN = "[1-9]{1}[0-9]{4}";
-		STREET_PATTERN ="^([1-9A-ZÀ-ß¯ª]{1}[0-9A-ZÀ-ß²¯à-ÿ³¿º'a-z-\\s\\.]{0,19}){1,20}$"; 
-		BUILD_PATTERN = "^([1-9]{1}[0-9]{0,9}(/{0,1}[à-ÿÀ-ß³²¿¯ºª'a-zA-Z]{1,2}){0,3}\\s{0,1}([1-9]{1,9}[0-9]{0,8}){0,9}){1,10}$"; //"([1-9]{1}[0-9à-ÿÀ-ß³²¿¯ºª'a-zA-Z/\\s]{0,9}){1,10}"; 
 		TELNUMBER_PATTERN = "[(]{1}[0-9]{3}[)]{1}[0-9]{7}";
-		TOWN_PATTERN = "^[A-Z]{1}[a-z]{1,9}([-]{1}\\s{1}[A-Z]{1}[a-z]{1,9}){0,11}$";
 	}
 	
-	public ValidationUtils (String codding){
+	public CoddingUtils (String codding){
 		if ("UA".equals(codding) || "EN".equals(codding)){
 			this.codding = codding;
 		}else{
@@ -52,7 +67,7 @@ public class ValidationUtils {
 		setPatterns();
 	}
 	
-	public ValidationUtils (){
+	public CoddingUtils (){
 	}
 	
 	

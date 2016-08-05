@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -29,10 +30,11 @@ public class PhoneBook {
 	@Override
 	public String toString() {
 		String str = "";
+		if (users != null){
 		for (User user : users) {
 				str += user.toString();				
-			
 		}
+		}else {str = "PhoneBook has not got users";}
 		return str;
 	}
 	

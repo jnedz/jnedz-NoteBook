@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.joda.time.DateTime;
 
 import consoleIO.ConsoleUserIO;
+import entity.PhoneBook;
+import jsonIO.JsonIO;
 import repository.Repository;
 import services.PhoneBookService;
 import xmlIO.XmlUserIO;
@@ -23,18 +25,27 @@ public class Main {
 		// System.out.println(Repository.phoneBookRepository());
 
 		ConsoleUserIO cu = new ConsoleUserIO();
-		/*
-		 * PhoneBook phoneBook = cu.readListFrom("console");
-		 * System.out.println(phoneBook);
-		 */
-
+		
+		
+	/*	PhoneBook phoneBook = cu.readListFrom("console");
+		 System.out.println(phoneBook);
+	*/	
+		
 		XmlUserIO xml = new XmlUserIO();
-		// List<User> users = Repository.usersRepository();
+		
+		PhoneBook phoneBook = Repository.phoneBookRepository();
+	
+		JsonIO js = new JsonIO();
+		
+	//	js.writeListTo(phoneBook, "e:\\json1.json");
+		
+		System.out.println(js.readListFrom("e:\\json1.json"));
+				// List<User> users = Repository.usersRepository();
 
-		/*
-		 * PhoneBook users = Repository.phoneBookRepository();
-		 * xml.writeListTo(users, "e:\\xml1.xml");
-		 */
+		
+	/*	  PhoneBook users = Repository.phoneBookRepository();
+		  xml.writeListTo(users, "e:\\xml1.xml");
+		*/
 		// System.out.println(xml.readListFrom("e:\\xml1.xml"));
 
 		// UserService us = new UserService(users);

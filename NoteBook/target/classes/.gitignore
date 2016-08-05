@@ -1,8 +1,6 @@
-/services/
-/utils/
-/xmlIO/
-/META-INF/
-/entity/
-/consoleIO/
-/repository/
+/jsonIO/
 /main/
+/entity/
+/utils/
+/consoleIO/
+/adapters/
