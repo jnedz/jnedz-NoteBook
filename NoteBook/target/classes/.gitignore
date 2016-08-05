@@ -1,11 +1,8 @@
-/consoleIO/
-/entity/
-/enums/
-/interfacesIO/
-/main/
-/repository/
 /services/
-/validationUtils/
+/utils/
 /xmlIO/
 /META-INF/
-/utils/
+/entity/
+/consoleIO/
+/repository/
+/main/

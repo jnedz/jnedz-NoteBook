@@ -96,7 +96,7 @@ public class User {
 	@Override
 	public String toString() {
 		String address = getAddress().toString();
-		if (getAddress().toString().length()>10){
+		if (!(getAddress().toString().isEmpty())){
 			address = getAddress().toString().substring(1, 11);
 		}
 		return "\n\n" + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString("dd/MM/yyyy") + ")\n" + getEmail() +"\n" + address + getTelNumbers();
