@@ -12,12 +12,9 @@ import javax.xml.bind.Unmarshaller;
 import entity.PhoneBook;
 import interfacesIO.UserIO;
 
-//TODO PhoneBook
 public class XmlUserIO implements UserIO {
 
 	@Override
-	//public void writeListTo(List<User> users, String fileName) {
-
 	public void writeListTo(PhoneBook phoneBook, String fileName) {
 		JAXBContext context;
 		try {
@@ -25,9 +22,7 @@ public class XmlUserIO implements UserIO {
 
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			//for (User user: phoneBook.getUsers()){
 			marshaller.marshal(phoneBook, new FileOutputStream(fileName));
-			//}
 		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}

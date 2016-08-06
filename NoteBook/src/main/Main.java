@@ -37,7 +37,7 @@ public class Main {
 	
 		JsonIO js = new JsonIO();
 		
-	//	js.writeListTo(phoneBook, "e:\\json1.json");
+		js.writeListTo(phoneBook, "e:\\json1.json");
 		
 		System.out.println(js.readListFrom("e:\\json1.json"));
 				// List<User> users = Repository.usersRepository();
