@@ -350,7 +350,7 @@ public class ConsoleUserIO implements UserIO {
 	 * @param phoneBook
 	 */
 	@Override
-	public void writeListTo(PhoneBook phoneBook, String fileName) {
+	public void writePhoneBookTo(PhoneBook phoneBook, String fileName) {
 		System.out.println(phoneBook);
 	}
 
@@ -361,7 +361,7 @@ public class ConsoleUserIO implements UserIO {
 	 *            some String like "Console"
 	 */
 	@Override
-	public PhoneBook readListFrom(String fileName) {
+	public PhoneBook readPhoneBookFrom(String fileName) {
 
 		Scanner sc = new Scanner(System.in);
 		List<User> users = new ArrayList<>();

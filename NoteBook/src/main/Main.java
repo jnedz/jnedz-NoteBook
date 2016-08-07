@@ -27,7 +27,7 @@ public class Main {
 		ConsoleUserIO cu = new ConsoleUserIO();
 		
 		
-	/*	PhoneBook phoneBook = cu.readListFrom("console");
+	/*	PhoneBook phoneBook = cu.readPhoneBookFrom("console");
 		 System.out.println(phoneBook);
 	*/	
 		
@@ -37,16 +37,16 @@ public class Main {
 	
 		JsonIO js = new JsonIO();
 		
-		js.writeListTo(phoneBook, "e:\\json1.json");
+		js.writePhoneBookTo(phoneBook, "e:\\json1.json");
 		
-		System.out.println(js.readListFrom("e:\\json1.json"));
+		System.out.println(js.readPhoneBookFrom("e:\\json1.json"));
 				// List<User> users = Repository.usersRepository();
 
 		
 	/*	  PhoneBook users = Repository.phoneBookRepository();
-		  xml.writeListTo(users, "e:\\xml1.xml");
+		  xml.writePhoneBookTo(users, "e:\\xml1.xml");
 		*/
-		// System.out.println(xml.readListFrom("e:\\xml1.xml"));
+		// System.out.println(xml.readPhoneBookFrom("e:\\xml1.xml"));
 
 		// UserService us = new UserService(users);
 		// System.out.println(us.getSortedByFirstName());

@@ -15,7 +15,7 @@ import interfacesIO.UserIO;
 public class XmlUserIO implements UserIO {
 
 	@Override
-	public void writeListTo(PhoneBook phoneBook, String fileName) {
+	public void writePhoneBookTo(PhoneBook phoneBook, String fileName) {
 		JAXBContext context;
 		try {
 			context = JAXBContext.newInstance(PhoneBook.class);
@@ -32,7 +32,7 @@ public class XmlUserIO implements UserIO {
 
 	//@SuppressWarnings("unchecked")
 	@Override
-	public PhoneBook readListFrom(String fileName) {
+	public PhoneBook readPhoneBookFrom(String fileName) {
 		PhoneBook phoneBook = null;
 		JAXBContext context;
 		try {

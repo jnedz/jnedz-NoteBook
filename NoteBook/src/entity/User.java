@@ -9,8 +9,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import adapters.DateTimeDeserializer;
 import adapters.DateTimeSerializer;
 import adapters.JodaDateTimeAdapter;
 import enums.Group;
@@ -25,6 +27,7 @@ public class User {
 	private String lastName;
 	private String firstName;
 	private String email;
+	@JsonDeserialize(using = DateTimeDeserializer.class)
 	private DateTime dateOfBirthday;
 	private Address address;
 	private PhonsNumbers telNumbers;

@@ -27,11 +27,17 @@ public class JodaDateTimeAdapter extends XmlAdapter<String, DateTime> {
 		}
 	}
 	
+	/**
+	 * method for serializing DateTime into String
+	 */
 	@Override
 	public String marshal(DateTime v) throws Exception {
 		return v.toString(format);
 	}
 
+	/**
+	 * method for deserializing String into DateTime
+	 */
 	@Override
 	public DateTime unmarshal(String v) throws Exception {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
