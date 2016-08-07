@@ -1,9 +1,2 @@
-/META-INF/
-/adapters/
-/entity/
-/DateTimeModule.class
-/jsonIO/
-/interfacesIO/
-/consoleIO/
-/xmlIO/
+/utils/
 /main/

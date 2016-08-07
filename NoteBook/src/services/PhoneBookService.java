@@ -73,7 +73,7 @@ public class PhoneBookService {
 		PhoneBook phBook = new PhoneBook();
 		List<User> usersByType = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
-			if (user.getType().equals(type)) {
+			if (user.getType().name().equals(type)) {
 				usersByType.add(user);
 			}
 		}
@@ -86,16 +86,14 @@ public class PhoneBookService {
 	 * @param phoneNumber
 	 * @return PhoneBook (list users) which contains entered phoneNumber
 	 */
-	public PhoneBook getUsersByPhone(String phoneNumber) {
+	public PhoneBook getUsersByPhoneContains(String phoneNumber) {
 		PhoneBook phBook = new PhoneBook();
 		List<User> usersByPhone = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
 			if (user.getTelNumbers().getHomeNumber().contains(phoneNumber)) {
 				usersByPhone.add(user);
-				break;
 			} else if (user.getTelNumbers().getWorkNumber().contains(phoneNumber)) {
 				usersByPhone.add(user);
-				break;
 			} else
 				for (String mobile : user.getTelNumbers().getMobileNumbers()) {
 					if (mobile.contains(phoneNumber)) {
@@ -306,7 +304,7 @@ public class PhoneBookService {
 	 * @param phoneNumber
 	 * @return all users with entered phone number
 	 */
-	public List<User> getUsersByPhoneNumber(String phoneNumber) {
+	public List<User> getUsersByPhoneNumberEquals(String phoneNumber) {
 		List<User> users = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
 			UserService userService = new UserService(user);
