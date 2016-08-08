@@ -36,6 +36,7 @@ public class User {
 	public User(){
 		IdGenerator idGener = new IdGenerator(new LinkedHashSet<>());
 		id = idGener.getID(1000, 9999);
+		//address.setId(id);
 	}
 	
 	@XmlElement

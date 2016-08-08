@@ -2,11 +2,18 @@ package entity;
 
 public class Address {
 
+	private long id;
 	private String index;
 	private String town;
 	private String street;
 	private String buildNumber;
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getIndex() {
 		return index;
 	}

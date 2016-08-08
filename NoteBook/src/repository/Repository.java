@@ -12,6 +12,7 @@ import entity.PhonsNumbers;
 import entity.PhoneBook;
 import entity.User;
 import enums.Group;
+import utils.DbUtils;
 
 public class Repository {
 
@@ -160,5 +161,19 @@ public class Repository {
 	public static PhoneBook phoneBookRepository() {
 		PhoneBook phoneBook = new PhoneBook(usersRepository());
 		return phoneBook;
+	}
+	
+	public static void createDbTables(){
+		DbUtils.createAddressesTable();
+		DbUtils.createMobileNumbersTable();
+		DbUtils.createPhoneNumbersTable();
+		DbUtils.createPhoneBookTable();
+	}
+	
+	public static void dropDbTables(){
+		DbUtils.dropPhoneBookTable();
+		DbUtils.dropPhoneNumbersTable();
+		DbUtils.dropMobileNumbersTable();
+		DbUtils.dropAddressesTable();
 	}
 }

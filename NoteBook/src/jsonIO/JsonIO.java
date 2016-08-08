@@ -39,6 +39,7 @@ public class JsonIO implements UserIO {
 		try {
 			
 			mapper.registerModule(new DateTimeModule());
+			
 			ph = mapper.readValue(new File(fileName), PhoneBook.class);
 
 		} catch (IOException e) {

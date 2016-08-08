@@ -1,6 +1,5 @@
 package entity;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,9 +9,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PhonsNumbers {
 
+	private long id;
 	private String homeNumber;
 	private String workNumber;
+	//TODO entity mobileNumbers
 	private Set<String> mobileNumbers = new HashSet<>();
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	@XmlElement
 	public String getHomeNumber() {

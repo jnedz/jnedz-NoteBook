@@ -1,12 +1,20 @@
 package main;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.joda.time.DateTime;
 
 import consoleIO.ConsoleUserIO;
+import dao.PhoneBookDAO;
+import entity.Address;
 import entity.PhoneBook;
+import entity.PhonsNumbers;
+import entity.User;
+import enums.Group;
+import jsonIO.JsonIO;
 import repository.Repository;
 import services.PhoneBookService;
-import utils.DbUtils;
 import xmlIO.XmlUserIO;
 
 public class Main {
@@ -45,24 +53,65 @@ public class Main {
 		
 		XmlUserIO xml = new XmlUserIO();
 		
-		//PhoneBook phoneBook = Repository.phoneBookRepository();
+		
+		PhoneBook phoneBook = Repository.phoneBookRepository();
 	
-/*		JsonIO js = new JsonIO();
+		JsonIO js = new JsonIO();
 		
-		js.writePhoneBookTo(phoneBook, "e:\\json1.json");
+	js.writePhoneBookTo(phoneBook, "e:\\json1.json");
 		
-		System.out.println(js.readPhoneBookFrom("e:\\json1.json"));
+	//	System.out.println(js.readPhoneBookFrom("e:\\json1.json"));
 				// List<User> users = Repository.usersRepository();
 
-*/		
+		
 //		  PhoneBook users = Repository.phoneBookRepository();
 //		  xml.writePhoneBookTo(users, "e:\\xml1.xml");
 		
 		// System.out.println(xml.readPhoneBookFrom("e:\\xml1.xml"));
 
-		DbUtils.createAddressesTable();
-	//	DbUtils.createUsersTable();
-	//	DbUtils.dropUsersTable();
+	//	DbUtils.createAddressesTable();
+	//	DbUtils.createMobileNumbersTable();
+	//	DbUtils.createPhoneNumbersTable();
+	//	DbUtils.createPhoneBookTable();
+	//	DbUtils.dropPhoneBookTable();
+	//	DbUtils.dropAddressesTable();
+	//	DbUtils.dropMobileNumbersTable();
 		
+		
+	//	Repository.createDbTables();
+	//	Repository.dropDbTables();
+	/*	
+		User user = new User();
+
+		user.setFirstName("FN1");
+		user.setLastName("LN1");
+		user.setType(Group.FAMILY);
+		user.setDateOfBirthday(new DateTime(1990, 10, 20, 00, 00));
+		user.setEmail("email1@gmail.com");
+
+		Address address = new Address();
+		address.setId(1);
+		address.setBuildNumber("10/2");
+		address.setIndex("58000");
+		address.setStreet("Golovna str.");
+		address.setTown("Chernivtsy");
+		user.setAddress(address);
+
+		PhonsNumbers telNumbers = new PhonsNumbers();
+		telNumbers.setId(1);
+		telNumbers.setHomeNumber("0372654321");
+		telNumbers.setWorkNumber("0372123456");
+		String mobNumber1 = "1234567890";
+		String mobNumber2 = "0987654321";
+		Set<String> mobileNumbers = new LinkedHashSet<>();
+		mobileNumbers.add(mobNumber1);
+		mobileNumbers.add(mobNumber2);
+		telNumbers.setMobileNumbers(mobileNumbers);
+		user.setTelNumbers(telNumbers);
+		
+		
+		PhoneBookDAO.add(user);
+
+		*/
 	}
 }
