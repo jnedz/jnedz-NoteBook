@@ -1,19 +1,47 @@
 package entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import enums.NumbersType;
+
 @XmlRootElement
-public class PhonsNumbers {
+public class PhoneNumber {
 
 	private long id;
+	private NumbersType numbersType;
+	private String phoneNumber;
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public NumbersType getNumbersType() {
+		return numbersType;
+	}
+	public void setNumbersType(NumbersType numbersType) {
+		this.numbersType = numbersType;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
+	@Override
+	public String toString() {
+		return "\n" + getNumbersType() + ": " + getPhoneNumber() + ", ";
+	}
+	
+/*	
 	private String homeNumber;
 	private String workNumber;
 	//TODO entity mobileNumbers
 	private Set<String> mobileNumbers = new HashSet<>();
+	//TODO enum typeNumber, string number
+	
+	
 	
 	public long getId() {
 		return id;
@@ -69,5 +97,5 @@ public class PhonsNumbers {
 		}
 		return str.toString();
 	}
-
+*/
 }

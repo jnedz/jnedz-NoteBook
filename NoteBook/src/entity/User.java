@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,9 +31,19 @@ public class User {
 	@JsonDeserialize(using = DateTimeDeserializer.class)
 	private DateTime dateOfBirthday;
 	private Address address;
-	private PhonsNumbers telNumbers;
+//	private PhonsNumbers telNumbers;
+	//TODO xml element
+	private Set<PhoneNumber>phonesNumbers;
 	
 	
+	public Set<PhoneNumber> getPhonesNumbers() {
+		return phonesNumbers;
+	}
+
+	public void setPhonesNumbers(Set<PhoneNumber> phonesNumbers) {
+		this.phonesNumbers = phonesNumbers;
+	}
+
 	public User(){
 		IdGenerator idGener = new IdGenerator(new LinkedHashSet<>());
 		id = idGener.getID(1000, 9999);
@@ -94,25 +105,27 @@ public class User {
 	public void setDateOfBirthday(DateTime dateOfBirthday) {
 		this.dateOfBirthday = dateOfBirthday;
 	}
-	@XmlElement
+/*	@XmlElement
 	public PhonsNumbers getTelNumbers() {
 		return telNumbers;
 	}
 	public void setTelNumbers(PhonsNumbers telNumbers) {
 		this.telNumbers = telNumbers;
 	}
-	
+	*/
 	@Override
 	public String toString() {
+		String str = "";
 		String format = new JodaDateTimeAdapter().getFormat();
 		
 		String address = getAddress().toString();
 		if (!(getAddress().toString().isEmpty())){
 			address = getAddress().toString().substring(1, 11);
 		}
-		
-		return "\n\n" + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString(format) + ")\n" + getEmail() +"\n" + address + getTelNumbers();
+		for (PhoneNumber pn : getPhonesNumbers()){
+			str += "\n" + pn.getNumbersType() + " " + pn.getPhoneNumber();
 	}
-	
+		return "\n\n" + getType() + " " + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString(format) + ")\n" + getEmail() +"\n" + address + str;
+	}
 	
 }

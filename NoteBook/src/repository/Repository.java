@@ -49,8 +49,8 @@ public class Repository {
 
 		user = new User();
 
-		user.setFirstName("FN2");
-		user.setLastName("LN2");
+		user.setFirstName("FN4");
+		user.setLastName("LN4");
 		user.setType(Group.FRIENDS);
 		user.setDateOfBirthday(new DateTime(1980, 01, 15, 00, 00));
 		user.setEmail("email2@gmail.com");
@@ -105,8 +105,8 @@ public class Repository {
 
 		user = new User();
 
-		user.setFirstName("FN4");
-		user.setLastName("LN4");
+		user.setFirstName("FN2");
+		user.setLastName("LN2");
 		user.setType(Group.FRIENDS);
 		user.setDateOfBirthday(new DateTime(1995, 02, 15, 00, 00));
 		user.setEmail("email4@gmail.com");

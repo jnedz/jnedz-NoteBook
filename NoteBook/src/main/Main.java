@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.joda.time.DateTime;
 
+import adapters.DateTimeDeserializer;
+import adapters.DateTimeSerializer;
 import consoleIO.ConsoleUserIO;
 import dao.PhoneBookDAO;
 import entity.Address;
@@ -23,6 +25,11 @@ public class Main {
 	public static void main(String... args) {
 
 		PhoneBookService phbookServ = new PhoneBookService(Repository.phoneBookRepository());
+		
+	//	System.out.println(phbookServ.searchUsers("ail4"));
+		
+	//	System.out.println(phbookServ.getUsersByTypeSortedByLastName());
+		
 	//	System.out.println(phbookServ.getSortedByLastName());
 	//	System.out.println(phbookServ.getUsersByDateOfBirthday(new DateTime(1980, 01, 15, 0, 0)));
 	//	System.out.println(phbookServ.getUsersByDayAndMonth(new  DateTime(2016, 01, 15, 0, 0)));
@@ -46,21 +53,29 @@ public class Main {
 
 		ConsoleUserIO cu = new ConsoleUserIO();
 		
-	/*	
-		PhoneBook phoneBook = cu.readPhoneBookFrom("console");
-		 System.out.println(phoneBook);
-	*/	
+		
+	//	PhoneBook phoneBook = cu.readPhoneBookFrom("console");
+	//	 System.out.println(phoneBook);
+		
 		
 		XmlUserIO xml = new XmlUserIO();
 		
 		
 		PhoneBook phoneBook = Repository.phoneBookRepository();
+		
+	//	PhoneBook phoneBook = new PhoneBook();
+	//	phoneBook.setUsers(phbookServ.getUsersByTypeSortedByLastName());
 	
 		JsonIO js = new JsonIO();
 		
-	js.writePhoneBookTo(phoneBook, "e:\\json1.json");
+		DateTimeSerializer.setFORMAT("dd/MM/yy");
+		DateTimeDeserializer.setFORMAT("dd/MM/yy");
 		
-	//	System.out.println(js.readPhoneBookFrom("e:\\json1.json"));
+		js.writePhoneBookTo(phoneBook, "e:\\json1.json");
+		
+		System.out.println(js.readPhoneBookFrom("e:\\json1.json"));
+		
+		
 				// List<User> users = Repository.usersRepository();
 
 		

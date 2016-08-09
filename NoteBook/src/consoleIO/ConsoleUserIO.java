@@ -27,7 +27,7 @@ public class ConsoleUserIO implements UserIO {
 	private User readUserFromConsole() {
 		User user = new User();
 
-		setCodding();
+		//setCodding();
 
 		user.setType(getTypeFromConsole());
 		user.setFirstName(getFirstNameFromConsole());
@@ -187,7 +187,6 @@ public class ConsoleUserIO implements UserIO {
 		try{
 		dt = dta.unmarshal(str);
 		}catch(Exception e){
-			//TODO
 			System.out.println("You have entered  incorrect date. Wrote today`s date.");
 			dt = new DateTime();
 		}
@@ -365,6 +364,7 @@ public class ConsoleUserIO implements UserIO {
 		List<User> users = new ArrayList<>();
 		User user = new User();
 		String str;
+		setCodding();
 		do {
 			user = readUserFromConsole();
 			users.add(user);

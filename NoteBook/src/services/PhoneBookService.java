@@ -30,8 +30,7 @@ public class PhoneBookService {
 	 * 
 	 * @return PhoneBook (list users) sorted by first name
 	 */
-	public PhoneBook getSortedByFirstName() {
-		PhoneBook phBook = new PhoneBook();
+	public List<User> getSortedByFirstName() {
 		List<User> sortedList = new ArrayList<>(phoneBook.getUsers());
 		Collections.sort(sortedList, new Comparator<User>() {
 
@@ -41,16 +40,14 @@ public class PhoneBookService {
 				return u1.getFirstName().compareTo(u2.getFirstName());
 			}
 		});
-		phBook.setUsers(sortedList);
-		return phBook;
+		return sortedList;
 	}
 
 	/**
 	 * 
 	 * @return PhoneBook (list users) sorted by last name
 	 */
-	public PhoneBook getSortedByLastName() {
-		PhoneBook phBook = new PhoneBook();
+	public List<User> getSortedByLastName() {
 		List<User> sortedList = new ArrayList<>(phoneBook.getUsers());
 		Collections.sort(sortedList, new Comparator<User>() {
 
@@ -60,25 +57,44 @@ public class PhoneBookService {
 				return u1.getLastName().compareTo(u2.getLastName());
 			}
 		});
-		phBook.setUsers(sortedList);
-		return phBook;
+		return sortedList;
 	}
 
+	/**
+	 * 
+	 * @return users sorted by group(type). When group is the same - sorted by last name
+	 */
+	public List<User> getUsersByTypeSortedByLastName(){
+		List<User> sortedList = new ArrayList<>(phoneBook.getUsers());
+		Collections.sort(sortedList, new Comparator<User>() {
+
+			@Override
+			public int compare(User u1, User u2) {
+
+				if (u1.getType().name().compareTo(u2.getType().name()) == 0){
+					return u1.getLastName().compareTo(u2.getLastName());
+				}
+				else 
+					return u1.getType().name().compareTo(u2.getType().name());
+			}
+		});
+		return sortedList;
+	}
+	
+	
 	/**
 	 * 
 	 * @param type
 	 * @return PhoneBook (list users) with entered type
 	 */
-	public PhoneBook getUsersByType(String type) {
-		PhoneBook phBook = new PhoneBook();
+	public List<User> getUsersByType(String type) {
 		List<User> usersByType = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
 			if (user.getType().name().equals(type)) {
 				usersByType.add(user);
 			}
 		}
-		phBook.setUsers(usersByType);
-		return phBook;
+		return usersByType;
 	}
 
 	/**
@@ -86,8 +102,7 @@ public class PhoneBookService {
 	 * @param phoneNumber
 	 * @return PhoneBook (list users) which contains entered phoneNumber
 	 */
-	public PhoneBook getUsersByPhoneContains(String phoneNumber) {
-		PhoneBook phBook = new PhoneBook();
+	public List<User> getUsersByPhoneContains(String phoneNumber) {
 		List<User> usersByPhone = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
 			if (user.getTelNumbers().getHomeNumber().contains(phoneNumber)) {
@@ -101,42 +116,23 @@ public class PhoneBookService {
 					}
 				}
 		}
-		phBook.setUsers(usersByPhone);
-		return phBook;
+		return usersByPhone;
 	}
 
-	/**
-	 * 
-	 * @param email
-	 * @return PhoneBook (list users) which contains entered email
-	 */
-	public PhoneBook getUsersByEmail(String email) {
-		PhoneBook phBook = new PhoneBook();
-		List<User> usersByEmail = new ArrayList<>();
-		for (User user : phoneBook.getUsers()) {
-			if (user.getEmail().contains(email)) {
-				usersByEmail.add(user);
-			}
-		}
-		phBook.setUsers(usersByEmail);
-		return phBook;
-	}
 
 	/**
 	 * 
 	 * @param town
 	 * @return PhoneBook (list users) which contains entered town
 	 */
-	public PhoneBook getUsersByTown(String town) {
-		PhoneBook phBook = new PhoneBook();
+	public List<User> getUsersByTown(String town) {
 		List<User> usersByTown = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
 			if (user.getAddress().getTown().contains(town)) {
 				usersByTown.add(user);
 			}
 		}
-		phBook.setUsers(usersByTown);
-		return phBook;
+		return usersByTown;
 	}
 
 	/**
@@ -146,6 +142,7 @@ public class PhoneBookService {
 	 * @return PhoneBook (list users) with first name which contains name1 or
 	 *         name2 and last name which contains name2 or name1.
 	 */
+	//TODO +email
 	public PhoneBook getUsersByName(String name1, String name2) {
 		PhoneBook phBook = new PhoneBook();
 		List<User> usersByName = new ArrayList<>();
@@ -177,14 +174,13 @@ public class PhoneBookService {
 		return phBook;
 	}
 
-	// TODO new
 	/**
 	 * 
 	 * @param dateOfBirthday
 	 * @return PhoneBook (list users) with birthday in entered date. Method uses
 	 *         only day and month, not year
 	 */
-	public PhoneBook getUsersByDayAndMonth(DateTime date) {
+	public PhoneBook getUsersByToday(DateTime date) {
 		PhoneBook phBook = new PhoneBook();
 		List<User> usersByDate = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
@@ -203,17 +199,16 @@ public class PhoneBookService {
 	 * @return PhoneBook (list users) with birthday in entered month. Method
 	 *         uses only months, not years.
 	 */
-	public PhoneBook getUsersWithBirthdayInMonth(int month) {
-		PhoneBook phBook = new PhoneBook();
+	public List<User> getUsersWithBirthdayInMonth(int month) {
 		List<User> usersByMonth = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
 			if (user.getDateOfBirthday().getMonthOfYear() == month) {
 				usersByMonth.add(user);
 			}
 		}
-		phBook.setUsers(usersByMonth);
-		return phBook;
+		return usersByMonth;
 	}
+
 
 	/**
 	 * 
@@ -224,57 +219,7 @@ public class PhoneBookService {
 	 * @return PhoneBook (list users) with birthday after start date and before
 	 *         finish date. Method uses only days and months, not years
 	 */
-	public PhoneBook getUsersWithBirthdayInDiapason(DateTime startDate, DateTime finishDate) {
-		PhoneBook phBook = new PhoneBook();
-		List<User> usersByDateDiapason = new ArrayList<>();
-		int userDay;
-		int userMonth;
-		int startDay;
-		int startMonth;
-		int finishDay;
-		int finishMonth;
-
-		for (User user : phoneBook.getUsers()) {
-			userDay = user.getDateOfBirthday().getDayOfMonth();
-			userMonth = user.getDateOfBirthday().getMonthOfYear();
-			startDay = startDate.getDayOfMonth();
-			startMonth = startDate.getMonthOfYear();
-			finishDay = finishDate.getDayOfMonth();
-			finishMonth = finishDate.getMonthOfYear();
-
-			if (startMonth == finishMonth) {
-				if (userDay >= startDay && userDay <= finishDay)
-					usersByDateDiapason.add(user);
-			}
-			if ((finishMonth - startMonth) == 1) {
-				if ((userMonth == startMonth && userDay >= startDay)
-						|| (userMonth == finishMonth && userDay <= finishDay))
-					usersByDateDiapason.add(user);
-			}
-			if ((finishMonth - startMonth) > 1) {
-				if ((userMonth > startMonth && userMonth < finishMonth)
-						|| (userMonth == startMonth && userDay >= startDay)
-						|| (userMonth == finishMonth && userDay <= finishDay))
-					usersByDateDiapason.add(user);
-			}
-			// TODO set 1970
-		}
-		phBook.setUsers(usersByDateDiapason);
-		return phBook;
-	}
-
-	//////////////////////////////////////////////////
-	/**
-	 * 
-	 * @param startDate
-	 *            start date from Diapason
-	 * @param finishDate
-	 *            finish date from Diapason
-	 * @return PhoneBook (list users) with birthday after start date and before
-	 *         finish date. Method uses only days and months, not years
-	 */
-	public PhoneBook getUsersWithBirthdayInDiapason2(DateTime startDate, DateTime finishDate) {
-		PhoneBook phBook = new PhoneBook();
+	public List<User> getUsersWithBirthdayInDiapason(DateTime startDate, DateTime finishDate) {
 		List<User> usersByDateDiapason = new ArrayList<>();
 
 		int dayStart = startDate.getDayOfMonth();
@@ -295,8 +240,7 @@ public class PhoneBookService {
 				usersByDateDiapason.add(user);
 			}
 		}
-		phBook.setUsers(usersByDateDiapason);
-		return phBook;
+		return usersByDateDiapason;
 	}
 
 	/**
@@ -304,7 +248,8 @@ public class PhoneBookService {
 	 * @param phoneNumber
 	 * @return all users with entered phone number
 	 */
-	public List<User> getUsersByPhoneNumberEquals(String phoneNumber) {
+	public PhoneBook getUsersByPhoneNumberEquals(String phoneNumber) {
+		PhoneBook phBook = new PhoneBook();
 		List<User> users = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
 			UserService userService = new UserService(user);
@@ -312,7 +257,8 @@ public class PhoneBookService {
 				users.add(user);
 			}
 		}
-		return users;
+		phBook.setUsers(users);
+		return phBook;
 	}
 
 	/**
@@ -321,17 +267,17 @@ public class PhoneBookService {
 	 *            add unique for the first names and last names users
 	 */
 	public void add(User user) {
-		boolean addUser = false;
+		boolean isUser = false;
 		if (phoneBook.getUsers().isEmpty()) {
-			addUser = true;
+			isUser = true;
 		} else
 			for (User us : phoneBook.getUsers()) {
 				if (!(us.getFirstName().equals(user.getFirstName()))
 						&& !(us.getLastName().equals(user.getLastName()))) {
-					addUser = true;
+					isUser = true;
 				}
 			}
-		if (addUser == true) {
+		if (isUser) {
 			phoneBook.getUsers().add(user);
 		}
 	}
@@ -345,4 +291,14 @@ public class PhoneBookService {
 		}
 	}
 
+	public List<User> searchUsers(String str) {
+		List<User> users = new ArrayList<>();
+		for (User us : phoneBook.getUsers()) {
+			if (us.getFirstName().contains(str) || us.getLastName().contains(str) || us.getEmail().contains(str)) {
+				users.add(us);
+			}
+		}
+		return users;
+	}
+	
 }

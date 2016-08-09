@@ -9,7 +9,7 @@ public class DateTimeModule extends SimpleModule {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * method uses for seializer/deseializer joda date format in/from json
+	 * method uses for serializer/deserializer joda date format in/from json
 	 */
 	public DateTimeModule() {
         super();
