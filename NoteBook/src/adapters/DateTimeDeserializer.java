@@ -22,10 +22,8 @@ public class DateTimeDeserializer extends JsonDeserializer<DateTime> {
 
 	public static String getFORMAT() {
 		if (FORMAT == null){
-		FORMAT = CoddingUtils.getFORMAT();
-		if (FORMAT == null) {
+		
 			FORMAT = "dd.MM.yyyy";
-		}
 		}
 		return FORMAT;
 	}
