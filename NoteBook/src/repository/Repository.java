@@ -1,17 +1,18 @@
 package repository;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
 
 import entity.Address;
-import entity.PhonsNumbers;
 import entity.PhoneBook;
+import entity.PhoneNumber;
 import entity.User;
 import enums.Group;
+import enums.NumbersType;
 import utils.DbUtils;
 
 public class Repository {
@@ -33,8 +34,17 @@ public class Repository {
 		address.setStreet("Golovna str.");
 		address.setTown("Chernivtsy");
 		user.setAddress(address);
+		
+		Set<PhoneNumber>phonesNumbers = new HashSet<>();
+		PhoneNumber pn = new PhoneNumber(NumbersType.WORK, "(037)1111111");
+		phonesNumbers.add(pn);
+		pn = new PhoneNumber(NumbersType.HOME, "(037)2222222");
+		phonesNumbers.add(pn);
+		pn = new PhoneNumber(NumbersType.MOBILE, "(037)3333333");
+		phonesNumbers.add(pn);
+		user.setPhonesNumbers(phonesNumbers);
 
-		PhonsNumbers telNumbers = new PhonsNumbers();
+	/*	PhonsNumbers telNumbers = new PhonsNumbers();
 		telNumbers.setHomeNumber("0372654321");
 		telNumbers.setWorkNumber("0372123456");
 		String mobNumber1 = "1234567890";
@@ -44,7 +54,7 @@ public class Repository {
 		mobileNumbers.add(mobNumber2);
 		telNumbers.setMobileNumbers(mobileNumbers);
 		user.setTelNumbers(telNumbers);
-
+*/
 		users.add(user);
 
 		user = new User();
@@ -62,7 +72,16 @@ public class Repository {
 		address.setTown("Lviv");
 		user.setAddress(address);
 
-		telNumbers = new PhonsNumbers();
+		Set<PhoneNumber>phonesNumbers1 = new HashSet<>();
+		PhoneNumber pn1 = new PhoneNumber(NumbersType.WORK, "(037)4444444");
+		phonesNumbers1.add(pn1);
+		pn1 = new PhoneNumber(NumbersType.HOME, "(037)5555555");
+		phonesNumbers1.add(pn1);
+		pn1 = new PhoneNumber(NumbersType.MOBILE, "(037)6666666");
+		phonesNumbers1.add(pn1);
+		user.setPhonesNumbers(phonesNumbers1);
+		
+/*		telNumbers = new PhonsNumbers();
 		telNumbers.setHomeNumber("0372654321");
 		telNumbers.setWorkNumber("0372123456");
 		// String mobNumber3 = "112233445";
@@ -72,7 +91,7 @@ public class Repository {
 		// mobileNumbers2.add(mobNumber4);
 		telNumbers.setMobileNumbers(mobileNumbers2);
 		user.setTelNumbers(telNumbers);
-
+*/
 		users.add(user);
 
 		user = new User();
@@ -90,7 +109,15 @@ public class Repository {
 		address.setTown("Odessa");
 		user.setAddress(address);
 
-		telNumbers = new PhonsNumbers();
+		Set<PhoneNumber>phonesNumbers3 = new HashSet<>();
+		PhoneNumber pn3 = new PhoneNumber(NumbersType.WORK, "(037)1234567");
+		phonesNumbers3.add(pn3);
+		pn3 = new PhoneNumber(NumbersType.HOME, "(037)2345678");
+		phonesNumbers3.add(pn3);
+		pn3 = new PhoneNumber(NumbersType.MOBILE, "(037)3456789");
+		phonesNumbers3.add(pn3);
+		user.setPhonesNumbers(phonesNumbers3);
+	/*	telNumbers = new PhonsNumbers();
 		telNumbers.setHomeNumber("0372556699");
 		telNumbers.setWorkNumber("0372445511");
 		String mobNumber5 = "(050)888-99-44";
@@ -100,7 +127,7 @@ public class Repository {
 		mobileNumbers3.add(mobNumber6);
 		telNumbers.setMobileNumbers(mobileNumbers3);
 		user.setTelNumbers(telNumbers);
-
+*/
 		users.add(user);
 
 		user = new User();
@@ -118,7 +145,15 @@ public class Repository {
 		address.setTown("Rivne");
 		user.setAddress(address);
 
-		telNumbers = new PhonsNumbers();
+		Set<PhoneNumber>phonesNumbers2 = new HashSet<>();
+		PhoneNumber pn2 = new PhoneNumber(NumbersType.WORK, "(037)1234444");
+		phonesNumbers2.add(pn2);
+		pn2 = new PhoneNumber(NumbersType.HOME, "(037)2342222");
+		phonesNumbers2.add(pn2);
+		pn2 = new PhoneNumber(NumbersType.MOBILE, "(037)3456666");
+		phonesNumbers2.add(pn2);
+		user.setPhonesNumbers(phonesNumbers2);
+	/*	telNumbers = new PhonsNumbers();
 		telNumbers.setHomeNumber("(111)1111111");
 		telNumbers.setWorkNumber("(222)2222222");
 		Set<String> mobileNumbers4 = new LinkedHashSet<>();
@@ -126,7 +161,7 @@ public class Repository {
 		mobileNumbers4.add("(098)7654321");
 		telNumbers.setMobileNumbers(mobileNumbers4);
 		user.setTelNumbers(telNumbers);
-
+*/
 		users.add(user);
 
 		user = new User();
@@ -144,7 +179,7 @@ public class Repository {
 		address.setTown("Town");
 		user.setAddress(address);
 
-		telNumbers = new PhonsNumbers();
+	/*	telNumbers = new PhonsNumbers();
 		telNumbers.setHomeNumber("(555)5555555");
 		telNumbers.setWorkNumber("(888)8888888");
 		Set<String> mobileNumbers5 = new LinkedHashSet<>();
@@ -152,7 +187,7 @@ public class Repository {
 		mobileNumbers5.add("(558)7569845");
 		telNumbers.setMobileNumbers(mobileNumbers5);
 		user.setTelNumbers(telNumbers);
-
+*/
 		users.add(user);
 
 		return users;
@@ -165,15 +200,19 @@ public class Repository {
 	
 	public static void createDbTables(){
 		DbUtils.createAddressesTable();
-		DbUtils.createMobileNumbersTable();
-		DbUtils.createPhoneNumbersTable();
-		DbUtils.createPhoneBookTable();
+		DbUtils.createUsersTable();
+			DbUtils.createPhonesNumbersTable();
+				DbUtils.createOwnersTable();
+					DbUtils.createPhoneBooksTable();
+		
 	}
 	
 	public static void dropDbTables(){
-		DbUtils.dropPhoneBookTable();
-		DbUtils.dropPhoneNumbersTable();
-		DbUtils.dropMobileNumbersTable();
+		DbUtils.dropPhoneBooksTable();
+		DbUtils.dropOwnersTable();
+		DbUtils.dropPhonesNumbersTable();
+		DbUtils.dropUsersTable();
 		DbUtils.dropAddressesTable();
 	}
+	
 }

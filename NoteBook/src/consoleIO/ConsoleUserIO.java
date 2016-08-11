@@ -11,9 +11,10 @@ import org.joda.time.DateTime;
 import adapters.JodaDateTimeAdapter;
 import entity.Address;
 import entity.PhoneBook;
-import entity.PhonsNumbers;
+import entity.PhoneNumber;
 import entity.User;
 import enums.Group;
+import enums.NumbersType;
 import interfacesIO.UserIO;
 import utils.CoddingUtils;
 
@@ -44,12 +45,30 @@ public class ConsoleUserIO implements UserIO {
 
 		user.setAddress(address);
 
-		PhonsNumbers telNumbers = new PhonsNumbers();
-		telNumbers.setHomeNumber(getHomeTelNumber());
-		telNumbers.setWorkNumber(getWorkNumber());
-		telNumbers.setMobileNumbers(getMobileNumbers());
+		Set <PhoneNumber>phonesNumbers = new HashSet<>();
+		PhoneNumber pnHome = new PhoneNumber (NumbersType.HOME, getHomeTelNumber());
+		phonesNumbers.add(pnHome);
+		PhoneNumber pnWork = new PhoneNumber (NumbersType.WORK, getWorkNumber());
+		phonesNumbers.add(pnWork);
+		//TODO
+		Scanner sc = new Scanner(System.in);
+		String mobile;
+		String str;
+	//	Set<String> mobileNumbers = new HashSet<>();
+		System.out.println("Will you enter mobile telephone number? If it is not, enter 'z': ");
+		str = sc.next();
+		if (!str.equals("z") && !str.equals("Z")) {
+			do {
+				PhoneNumber pnMobile = new PhoneNumber (NumbersType.MOBILE, getMobileNumber());
+				phonesNumbers.add(pnMobile);
+				
+				System.out.println("Do you want to continue to add mobile`s numbers? (1 - yes)");
+				str = sc.next();
+			} while (str.equals("1"));
+		}
+		//telNumbers.setMobileNumbers(getMobileNumbers());
 
-		user.setTelNumbers(telNumbers);
+		user.setPhonesNumbers(phonesNumbers);
 
 		return user;
 	}
@@ -310,19 +329,15 @@ public class ConsoleUserIO implements UserIO {
 		return str;
 	}
 
+	//TODO
 	/**
 	 * 
 	 * @return selected from console users mobile telephone numbers
 	 */
-	private Set<String> getMobileNumbers() {
+	private String getMobileNumber() {
 		Scanner sc = new Scanner(System.in);
-		String mobile;
 		String str;
-		Set<String> mobileNumbers = new HashSet<>();
-		System.out.println("Will you enter mobile telephone number? If it is not, enter 'z': ");
-		str = sc.next();
-		if (!str.equals("z") && !str.equals("Z")) {
-			do {
+		
 				do {
 					System.out.println("mobile number in format '(123)1234567': ");
 					str = sc.next();
@@ -330,13 +345,9 @@ public class ConsoleUserIO implements UserIO {
 						System.out.println("You have entered the invalide number`s format. Please try again.");
 					}
 				} while (!validation.checkTelNumber(str));
-				mobileNumbers.add(str);
-				System.out.println("Do you want to continue to add mobile`s numbers? (1 - yes)");
-				mobile = sc.next();
-			} while (mobile.equals("1"));
-		}
+				
 		// sc.close();
-		return mobileNumbers;
+		return str;
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ import enums.Group;
 import utils.IdGenerator;
 
 @XmlRootElement
-@XmlType(propOrder = {"id", "type", "firstName", "lastName", "dateOfBirthday", "email", "address", "telNumbers"})
+@XmlType(propOrder = { "id", "type", "firstName", "lastName", "dateOfBirthday", "email", "address", "phonesNumbers" })
 public class User {
 
 	private long id;
@@ -31,11 +32,9 @@ public class User {
 	@JsonDeserialize(using = DateTimeDeserializer.class)
 	private DateTime dateOfBirthday;
 	private Address address;
-//	private PhonsNumbers telNumbers;
-	//TODO xml element
-	private Set<PhoneNumber>phonesNumbers;
-	
-	
+	private Set<PhoneNumber> phonesNumbers = new HashSet<>();
+
+	@XmlElement
 	public Set<PhoneNumber> getPhonesNumbers() {
 		return phonesNumbers;
 	}
@@ -44,88 +43,94 @@ public class User {
 		this.phonesNumbers = phonesNumbers;
 	}
 
-	public User(){
+	public User() {
 		IdGenerator idGener = new IdGenerator(new LinkedHashSet<>());
 		id = idGener.getID(1000, 9999);
-		//address.setId(id);
 	}
-	
+
 	@XmlElement
 	public long getId() {
 		return id;
 	}
 
-	/*public void setId(long id) {
-		this.id = id;
-	}*/
-
+	/*
+	 * public void setId(long id) { this.id = id; }
+	 */
 
 	@XmlElement
 	public Group getType() {
 		return type;
 	}
+
 	public void setType(Group type) {
 		this.type = type;
 	}
+
 	@XmlElement
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	@XmlElement
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	@XmlElement
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	@XmlElement
 	public Address getAddress() {
 		return address;
 	}
+
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	//@JsonIgnore
+
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@XmlElement
 	@XmlJavaTypeAdapter(JodaDateTimeAdapter.class)
 	public DateTime getDateOfBirthday() {
 		return dateOfBirthday;
 	}
+
 	public void setDateOfBirthday(DateTime dateOfBirthday) {
 		this.dateOfBirthday = dateOfBirthday;
 	}
-/*	@XmlElement
-	public PhonsNumbers getTelNumbers() {
-		return telNumbers;
-	}
-	public void setTelNumbers(PhonsNumbers telNumbers) {
-		this.telNumbers = telNumbers;
-	}
-	*/
+
+	
 	@Override
 	public String toString() {
-		String str = "";
 		String format = new JodaDateTimeAdapter().getFormat();
-		
+
 		String address = getAddress().toString();
-		if (!(getAddress().toString().isEmpty())){
+		if (!(getAddress().toString().isEmpty())) {
 			address = getAddress().toString().substring(1, 11);
 		}
-		for (PhoneNumber pn : getPhonesNumbers()){
-			str += "\n" + pn.getNumbersType() + " " + pn.getPhoneNumber();
+
+		String phn = "";
+		
+		for (PhoneNumber pn : getPhonesNumbers()) {
+			phn+= pn.toString();
+		
+		}
+		return "\n\n" + getType() + " " + getFirstName() + " " + getLastName() + " ("
+				+ getDateOfBirthday().toString(format) + ")\n" + getEmail() + "\n" + address + phn;
 	}
-		return "\n\n" + getType() + " " + getFirstName() + " " + getLastName() + " (" + getDateOfBirthday().toString(format) + ")\n" + getEmail() +"\n" + address + str;
-	}
-	
+
 }

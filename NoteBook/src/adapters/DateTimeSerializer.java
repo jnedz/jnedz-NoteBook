@@ -21,7 +21,7 @@ public class DateTimeSerializer extends JsonSerializer<DateTime> {
 		FORMAT = fORMAT;
 	}
 
-	public static String FORMAT() {
+	public static String getFORMAT() {
 		if (FORMAT == null){
 		FORMAT = CoddingUtils.getFORMAT();
 		if (FORMAT == null) {
@@ -38,7 +38,7 @@ public class DateTimeSerializer extends JsonSerializer<DateTime> {
 	public void serialize(DateTime value, JsonGenerator gen, SerializerProvider arg2)
 			throws IOException, JsonProcessingException {
 
-		gen.writeString(DateTimeFormat.forPattern(FORMAT).print(value));
+		gen.writeString(DateTimeFormat.forPattern(getFORMAT()).print(value));
 	}
 
 }

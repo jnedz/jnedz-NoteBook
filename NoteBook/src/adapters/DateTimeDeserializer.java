@@ -22,7 +22,6 @@ public class DateTimeDeserializer extends JsonDeserializer<DateTime> {
 
 	public static String getFORMAT() {
 		if (FORMAT == null){
-		
 			FORMAT = "dd.MM.yyyy";
 		}
 		return FORMAT;
@@ -32,7 +31,7 @@ public class DateTimeDeserializer extends JsonDeserializer<DateTime> {
 	public DateTime deserialize(JsonParser jsonParser, DeserializationContext arg1)
 			throws IOException, JsonProcessingException {
 		String dateTimeAsString = jsonParser.getText().trim();
-		return DateTimeFormat.forPattern(FORMAT).parseDateTime(dateTimeAsString);
+		return DateTimeFormat.forPattern(getFORMAT()).parseDateTime(dateTimeAsString);
 	}
 	
 }

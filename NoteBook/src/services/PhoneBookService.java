@@ -104,17 +104,12 @@ public class PhoneBookService {
 	 */
 	public List<User> getUsersByPhoneContains(String phoneNumber) {
 		List<User> usersByPhone = new ArrayList<>();
+		UserService us = new UserService();
 		for (User user : phoneBook.getUsers()) {
-			if (user.getTelNumbers().getHomeNumber().contains(phoneNumber)) {
+			us = new UserService(user);
+			if (us.isContainsNumber(phoneNumber)){
 				usersByPhone.add(user);
-			} else if (user.getTelNumbers().getWorkNumber().contains(phoneNumber)) {
-				usersByPhone.add(user);
-			} else
-				for (String mobile : user.getTelNumbers().getMobileNumbers()) {
-					if (mobile.contains(phoneNumber)) {
-						usersByPhone.add(user);
-					}
-				}
+			}
 		}
 		return usersByPhone;
 	}
@@ -142,7 +137,7 @@ public class PhoneBookService {
 	 * @return PhoneBook (list users) with first name which contains name1 or
 	 *         name2 and last name which contains name2 or name1.
 	 */
-	//TODO +email
+	//TODO ???
 	public PhoneBook getUsersByName(String name1, String name2) {
 		PhoneBook phBook = new PhoneBook();
 		List<User> usersByName = new ArrayList<>();
@@ -220,20 +215,14 @@ public class PhoneBookService {
 	 *         finish date. Method uses only days and months, not years
 	 */
 	public List<User> getUsersWithBirthdayInDiapason(DateTime startDate, DateTime finishDate) {
+		
 		List<User> usersByDateDiapason = new ArrayList<>();
-
-		int dayStart = startDate.getDayOfMonth();
-		int monthStart = startDate.getMonthOfYear();
-		DateTime newStartDate = new DateTime(1970, monthStart, dayStart, 0, 0);
-
-		int dayFinish = finishDate.getDayOfMonth();
-		int monthFinish = finishDate.getMonthOfYear();
-		DateTime newFinishDate = new DateTime(1970, monthFinish, dayFinish, 0, 0);
+		DateTime newStartDate = new DateTime(1970, startDate.getMonthOfYear(), startDate.getDayOfMonth(), 0, 0);
+		DateTime newFinishDate = new DateTime(1970, finishDate.getMonthOfYear(), finishDate.getDayOfMonth(), 0, 0);
 
 		for (User user : phoneBook.getUsers()) {
-			int day = user.getDateOfBirthday().getDayOfMonth();
-			int month = user.getDateOfBirthday().getMonthOfYear();
-			DateTime newDateOfBirthday = new DateTime(1970, month, day, 0, 0);
+			
+			DateTime newDateOfBirthday = new DateTime(1970, user.getDateOfBirthday().getMonthOfYear(), user.getDateOfBirthday().getDayOfMonth(), 0, 0);
 
 			if (newDateOfBirthday.getMillis() >= newStartDate.getMillis()
 					&& newDateOfBirthday.getMillis() <= newFinishDate.getMillis()) {
@@ -253,7 +242,7 @@ public class PhoneBookService {
 		List<User> users = new ArrayList<>();
 		for (User user : phoneBook.getUsers()) {
 			UserService userService = new UserService(user);
-			if (userService.isGetNumber(phoneNumber)) {
+			if (userService.isEqualsNumber(phoneNumber)) {
 				users.add(user);
 			}
 		}

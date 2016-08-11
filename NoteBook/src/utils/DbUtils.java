@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import enums.Group;
+import enums.NumbersType;
 
 public class DbUtils {
 
@@ -26,41 +27,31 @@ public class DbUtils {
 	public static Connection getConnection() {
 		return conn;
 	}
-
-	/*
-	public static void createPhoneBookTable() {
+	
+	public static void createPhoneBooksTable() {
 
 		Statement statement = null;
-		StringBuilder sb = new StringBuilder();
-		for (Group type : Group.values()) {
-			if (sb.length() == 0) {
-				sb.append(type.toString());
-			} else {
-				sb.append("', '" + type.toString());
-			}
-		}
+		
 		try {
-			String sql = "create table PhoneBook (id INT NOT NULL, "//AUTO_INCREMENT, "
-					+ "firstName  varchar(20) not null, lastName varchar(20) not null, type enum('" + sb
-					+ "') default 'OTHER', email varchar(40), dateOfBirthday date, " + "homePhoneNumber varchar(12), "
-					+ "workPhoneNumber varchar(12), "
+			String sql = "create table PhoneBooks (id INT NOT NULL AUTO_INCREMENT, "
+		
+					+ "user_id int not null, FOREIGN KEY (user_id) REFERENCES Users(id), "
 
-					+ "mobileNumbers_id int, FOREIGN KEY (mobileNumbers_id) REFERENCES MobileNumbers(id), "
-					
-					+ "address_id int, FOREIGN KEY (address_id) REFERENCES Addresses(id), "
+					+ "owner_id int not null, FOREIGN KEY (owner_id) REFERENCES Owners(id), "
 
-					+ "primary key (id))";
+					+ "primary key (id) )";
 
 			statement = getConnection().createStatement();
 			statement.executeUpdate(sql);
 			statement.close();
 		} catch (SQLException sqlexc) {
-			System.out.println("Exeption in createPhoneBookTable()");
+			System.out.println("Exeption in createPhoneBooksTable()");
 		}
 	}
-	*/
+		
+		
 	
-	public static void createPhoneBookTable() {
+	public static void createUsersTable() {
 
 		Statement statement = null;
 		StringBuilder sb = new StringBuilder();
@@ -72,12 +63,11 @@ public class DbUtils {
 			}
 		}
 		try {
-			String sql = "create table PhoneBook (id INT NOT NULL, "//AUTO_INCREMENT, "
-					+ "firstName  varchar(20) not null, lastName varchar(20) not null, type enum('" + sb
+			String sql = "create table Users (id INT NOT NULL AUTO_INCREMENT, "
+																
+					+ "firstName varchar(20) not null, lastName varchar(20) not null, type enum('" + sb
 					+ "') default 'OTHER', email varchar(40), dateOfBirthday date, "
 
-					+ "phoneNumbers_id int, FOREIGN KEY (phoneNumbers_id) REFERENCES PhoneNumbers(id), "
-					
 					+ "address_id int, FOREIGN KEY (address_id) REFERENCES Addresses(id), "
 
 					+ "primary key (id))";
@@ -86,50 +76,40 @@ public class DbUtils {
 			statement.executeUpdate(sql);
 			statement.close();
 		} catch (SQLException sqlexc) {
-			System.out.println("Exeption in createPhoneBookTable()");
-		}
-	}
-	
-	public static void createPhoneNumbersTable() {
-
-		Statement statement = null;
-		try {
-			String sql = "create table phoneNumbers (id INT NOT NULL AUTO_INCREMENT, " 
-		+ "workNumber varchar(12), "
-		+ "homeNumber varchar(12), "
-		+ "mobileNumbers_id int, FOREIGN KEY (mobileNumbers_id) REFERENCES MobileNumbers(id), "
-		+ "primary key (id) )";
-			statement = getConnection().createStatement();
-			statement.executeUpdate(sql);
-			statement.close();
-		} catch (SQLException sqlexc) {
-			System.out.println("Exeption in createPhoneNumbersTable()");
+			System.out.println("Exeption in createUsersTable()");
 		}
 	}
 
-	public static void createMobileNumbersTable() {
+	public static void createPhonesNumbersTable() {
 
 		Statement statement = null;
+		StringBuilder sb = new StringBuilder();
+		for (NumbersType type : NumbersType.values()) {
+			if (sb.length() == 0) {
+				sb.append(type.toString());
+			} else {
+				sb.append("', '" + type.toString());
+			}
+		}
 		try {
-			String sql = "create table MobileNumbers (id INT NOT NULL AUTO_INCREMENT, " + "mobileNumber varchar(12), "
+			String sql = "create table phonesNumbers (id INT NOT NULL AUTO_INCREMENT, " 
+					+ "numbersType enum('" + sb
+					+ "'), phoneNumber varchar(12) not null, " 
+					+ "user_id int not null, FOREIGN KEY (user_id) REFERENCES Users(id), "
 					+ "primary key (id) )";
 			statement = getConnection().createStatement();
 			statement.executeUpdate(sql);
 			statement.close();
 		} catch (SQLException sqlexc) {
-			System.out.println("Exeption in createMobileNumbersTable()");
+			System.out.println("Exeption in createPhonesNumbersTable()");
 		}
 	}
-	
-
 
 	public static void createAddressesTable() {
 
 		Statement statement = null;
 		try {
-			String sql = "create table Addresses (id INT NOT NULL AUTO_INCREMENT, " + "indeks varchar(5), " // why
-																											// not
-																											// indeX?!!
+			String sql = "create table Addresses (id INT NOT NULL AUTO_INCREMENT, " + "zipcode varchar(5), " 
 					+ "town varchar(20) not null, " + "street varchar(20), " + "buildNumber varchar(10), "
 					+ "primary key (id) )";
 			statement = getConnection().createStatement();
@@ -141,16 +121,72 @@ public class DbUtils {
 
 	}
 
-	public static void dropPhoneBookTable() {
+	public static void createOwnersTable() {
 
 		Statement statement = null;
 		try {
-			String sql = "drop table if exists PhoneBook";
+			String sql = "create table Owners (id int not null auto_increment, " 
+					+ "login varchar(20) not null, "
+					+ "password varchar(20) not null, " 
+					+ "primary key (id) )";
 			statement = getConnection().createStatement();
 			statement.executeUpdate(sql);
 			statement.close();
 		} catch (SQLException sqlexc) {
-			System.out.println("SQL exception in dropPhoneBookTable()");
+			System.out.println("Exeption in createOwnersTable()");
+		}
+	}
+
+	public static void dropPhoneBooksTable() {
+
+		Statement statement = null;
+		try {
+			String sql = "drop table if exists PhoneBooks";
+			statement = getConnection().createStatement();
+			statement.executeUpdate(sql);
+			statement.close();
+		} catch (SQLException sqlexc) {
+			System.out.println("SQL exception in dropPhoneBooksTable()");
+		}
+	}
+	
+	
+	public static void dropUsersTable() {
+
+		Statement statement = null;
+		try {
+			String sql = "drop table if exists Users";
+			statement = getConnection().createStatement();
+			statement.executeUpdate(sql);
+			statement.close();
+		} catch (SQLException sqlexc) {
+			System.out.println("SQL exception in dropUsersTable()");
+		}
+	}
+	
+	public static void dropOwnersTable() {
+
+		Statement statement = null;
+		try {
+			String sql = "drop table if exists Owners";
+			statement = getConnection().createStatement();
+			statement.executeUpdate(sql);
+			statement.close();
+		} catch (SQLException sqlexc) {
+			System.out.println("SQL exception in dropOwnersTable()");
+		}
+	}
+
+	public static void dropPhonesNumbersTable() {
+
+		Statement statement = null;
+		try {
+			String sql = "drop table if exists PhonesNumbers";
+			statement = getConnection().createStatement();
+			statement.executeUpdate(sql);
+			statement.close();
+		} catch (SQLException sqlexc) {
+			System.out.println("SQL exception in dropPhonesNumbersTable()");
 		}
 	}
 
@@ -164,32 +200,6 @@ public class DbUtils {
 			statement.close();
 		} catch (SQLException sqlexc) {
 			System.out.println("SQL exception in dropAddressesTable()");
-		}
-	}
-	
-	public static void dropPhoneNumbersTable() {
-
-		Statement statement = null;
-		try {
-			String sql = "drop table if exists PhoneNumbers";
-			statement = getConnection().createStatement();
-			statement.executeUpdate(sql);
-			statement.close();
-		} catch (SQLException sqlexc) {
-			System.out.println("SQL exception in dropPhoneNumbersTable()");
-		}
-	}
-
-	public static void dropMobileNumbersTable() {
-
-		Statement statement = null;
-		try {
-			String sql = "drop table if exists MobileNumbers";
-			statement = getConnection().createStatement();
-			statement.executeUpdate(sql);
-			statement.close();
-		} catch (SQLException sqlexc) {
-			System.out.println("SQL exception in dropMobileNumbersTable()");
 		}
 	}
 

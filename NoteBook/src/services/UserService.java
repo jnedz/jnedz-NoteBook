@@ -1,5 +1,6 @@
 package services;
 
+import entity.PhoneNumber;
 import entity.User;
 
 public class UserService {
@@ -26,8 +27,8 @@ public class UserService {
 	 * @param phoneNumber
 	 * @return true when user has phone number, false when user has not it
 	 */
-	public boolean isGetNumber(String phoneNumber) {
-		if (user.getTelNumbers().getHomeNumber().equals(phoneNumber)
+	public boolean isEqualsNumber(String phoneNumber) {
+	/*	if (user.getTelNumbers().getHomeNumber().equals(phoneNumber)
 				|| user.getTelNumbers().getWorkNumber().equals(phoneNumber)) {
 			return true;
 		} else
@@ -36,6 +37,28 @@ public class UserService {
 					return true;
 				}
 			}
+		return false;*/
+		
+		for (PhoneNumber pn : user.getPhonesNumbers()){
+			if (pn.getPhoneNumber().equals(phoneNumber)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param phoneNumber
+	 * @return true when user has phone number which contains argument phoneNumber, false when user has not it
+	 */
+	public boolean isContainsNumber(String phoneNumber) {
+		
+		for (PhoneNumber pn : user.getPhonesNumbers()){
+			if (pn.getPhoneNumber().contains(phoneNumber)){
+				return true;
+			}
+		}
 		return false;
 	}
 	
